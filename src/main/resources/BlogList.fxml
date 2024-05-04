@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="729.0" prefWidth="1041.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.BlogList">
+   <children>
+      <BorderPane layoutX="16.0" layoutY="10.0" prefHeight="684.0" prefWidth="906.0">
+         <left>
+            <VBox prefHeight="200.0" prefWidth="435.0" styleClass="primary-color" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="77.0" prefWidth="435.0">
+                     <children>
+                        <Label prefHeight="50.0" prefWidth="84.0" text="Vos" textFill="WHITE">
+                           <font>
+                              <Font name="Cambria Bold" size="40.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="95.0" prefWidth="142.0" text="blogs" textFill="WHITE">
+                           <font>
+                              <Font name="Cambria" size="40.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="53.0" prefWidth="375.0" VBox.vgrow="NEVER">
+                     <VBox.margin>
+                        <Insets left="30.0" right="30.0" />
+                     </VBox.margin>
+                     <children>
+                        <TextField fx:id="onsearchbloglabel" prefHeight="40.0" prefWidth="235.0" promptText="Type here to search" styleClass="transparent">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Cambria" size="18.0" />
+                           </font>
+                        </TextField>
+                        <Button mnemonicParsing="false" onAction="#onsearchvoyage" prefHeight="40.0" prefWidth="100.0" styleClass="search-button" text="Search" textFill="WHITE" />
+                     </children>
+                     <styleClass>
+                        <String fx:value="search-box" />
+                        <String fx:value="shadow" />
+                     </styleClass>
+                  </HBox>
+                  <Pane prefHeight="11.0" prefWidth="435.0" VBox.vgrow="ALWAYS" />
+                  <VBox fx:id="chosenblogCard" alignment="CENTER" prefHeight="412.0" prefWidth="335.0">
+                     <VBox.margin>
+                        <Insets left="50.0" right="50.0" />
+                     </VBox.margin>
+                     <children>
+                        <HBox prefHeight="53.0" prefWidth="315.0">
+                           <children>
+                              <Label fx:id="titre" prefHeight="48.0" prefWidth="276.0" text="Peach">
+                                 <font>
+                                    <Font name="Cambria" size="25.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="date" prefHeight="57.0" prefWidth="171.0" text="2/6/2024">
+                                 <font>
+                                    <Font name="Cambria" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets left="20.0" top="30.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <ImageView fx:id="blogimg" fitHeight="213.0" fitWidth="207.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/mango.png" />
+                           </image>
+                           <VBox.margin>
+                              <Insets top="40.0" />
+                           </VBox.margin>
+                        </ImageView>
+                        <HBox alignment="CENTER" prefHeight="53.0" prefWidth="335.0">
+                           <children>
+                              <VBox prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Button fx:id="blogEdit_btn" mnemonicParsing="false" onAction="#onblogedit" prefHeight="42.0" prefWidth="111.0" styleClass="search-button" text="Modifier" textFill="#eef4f3" />
+                                    <HBox alignment="CENTER" prefHeight="53.0" prefWidth="335.0">
+                                       <VBox.margin>
+                                          <Insets top="20.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <ImageView fx:id="delete_button" fitHeight="37.0" fitWidth="37.0" onMousePressed="#deleteblog" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@img/icons8-empty-trash-100.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </VBox>
+                              <Button fx:id="favadd" mnemonicParsing="false" onAction="#onfavadd" stylesheets="@styles.css" text="fav*add" />
+                              <ToggleButton fx:id="favbutton" mnemonicParsing="false" text="ToggleButton">
+                                 <cursor>
+                                    <Cursor fx:constant="DEFAULT" />
+                                 </cursor>
+                              </ToggleButton>
+                           </children>
+                        </HBox>
+                     </children>
+                     <styleClass>
+                        <String fx:value="chosen-fruit-card" />
+                        <String fx:value="shadow" />
+                     </styleClass>
+                  </VBox>
+                  <Pane prefHeight="57.0" prefWidth="435.0" VBox.vgrow="ALWAYS" />
+               </children>
+            </VBox>
+         </left>
+         <center>
+            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox prefHeight="77.0" prefWidth="725.0">
+                     <children>
+                        <Pane prefHeight="84.0" prefWidth="96.0" />
+                        <HBox fx:id="goToAjouter" alignment="CENTER" onMousePressed="#navigateToAjouterblog" prefHeight="77.0" prefWidth="331.0" styleClass="free-delivery-card">
+                           <children>
+                              <VBox alignment="CENTER" prefHeight="100.0" prefWidth="214.0">
+                                 <children>
+                                    <Label prefHeight="29.0" prefWidth="190.0" text="ajouter un blog" textFill="#878787">
+                                       <font>
+                                          <Font name="Cambria Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <ImageView fitHeight="49.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@img/icons8-add-100.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </HBox>
+                        <Pane prefHeight="61.0" prefWidth="103.0" HBox.hgrow="ALWAYS" />
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="336.0" styleClass="shopping-online-card">
+                           <children>
+                              <Label prefHeight="29.0" prefWidth="190.0" text="mes favoris " textFill="#878787">
+                                 <font>
+                                    <Font name="Cambria Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Button fx:id="favoris" mnemonicParsing="false" onAction="#onsearchfavoris" prefHeight="41.0" prefWidth="38.0" styleClass="search-button" text="*" textFill="#b0c111">
+                                 <font>
+                                    <Font name="System Bold Italic" size="46.0" />
+                                 </font>
+                              </Button>
+                           </children></HBox>
+                        <Pane prefHeight="84.0" prefWidth="96.0" />
+                     </children>
+                     <VBox.margin>
+                        <Insets left="20.0" right="20.0" top="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="557.0" prefWidth="471.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <ScrollPane fx:id="scroll" prefHeight="524.0" prefWidth="461.0" styleClass="transparent">
+                           <content>
+                              <GridPane fx:id="grid" prefHeight="35.0" prefWidth="51.0">
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                                 </rowConstraints>
+                              </GridPane>
+                           </content>
+                           <HBox.margin>
+                              <Insets left="10.0" top="10.0" />
+                           </HBox.margin>
+                        </ScrollPane>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </center>
+      </BorderPane>
+      <HBox layoutX="458.0" layoutY="694.0" prefHeight="39.0" prefWidth="476.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#previouspage" text="precedent" />
+            <Label fx:id="currentPageLabel" text="page:" />
+            <Button mnemonicParsing="false" onAction="#nextPage" text="suivant" />
+            <Label fx:id="totalPagesLabel" text="sur:" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

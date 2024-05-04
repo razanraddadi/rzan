@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane onMousePressed="#click" prefHeight="219.0" prefWidth="231.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.Cardblogs">
+   <styleClass>
+      <String fx:value="fruit-item" />
+      <String fx:value="shadow" />
+   </styleClass>
+   <children>
+      <AnchorPane layoutX="16.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" />
+      <HBox layoutX="10.0" layoutY="10.0" prefHeight="51.0" prefWidth="185.0">
+         <children>
+            <Label fx:id="titrelabel" prefHeight="49.0" prefWidth="137.0" text="mexico">
+               <font>
+                  <Font name="Cambria" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="datelabel" prefHeight="49.0" prefWidth="101.0" text="2/6/2024">
+               <font>
+                  <Font name="Cambria Bold" size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <ImageView fx:id="imageFrame" fitHeight="131.0" fitWidth="200.0" layoutX="16.0" layoutY="61.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</AnchorPane>
