@@ -1,10 +1,10 @@
 package tn.esprit.models;
 
-import tn.esprit.controllers.BlogList;
+import tn.esprit.controllers.Blogs;
 
 import java.util.Date;
 
-public class Blog extends BlogList {
+public class Blog extends Blogs {
     private int id;
     private String titre;
     private String content;

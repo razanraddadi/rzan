@@ -1,5 +1,5 @@
 package tn.esprit;
-
+import org.json.JSONObject;
 import tn.esprit.controllers.WeatherForecast;
 import tn.esprit.models.Activite;
 import tn.esprit.models.Voyage;
@@ -14,6 +14,9 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws ServiceVoyage.ItemNotFoundException, ServiceActivite.ItemNotFoundException ,BlogService.ItemNotFoundException  {
+        String jsonString = "{\"key\": \"value\"}"; // Exemple de chaîne JSON
+        JSONObject jsonObject = new JSONObject(jsonString);
+        System.out.println(jsonObject);
 
         System.out.println(WeatherForecast.getLocationData("Tokyo"));
         MyDataBase myDatabase = new MyDataBase();

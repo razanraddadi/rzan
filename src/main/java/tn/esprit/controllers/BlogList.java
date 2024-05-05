@@ -11,30 +11,47 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import tn.esprit.interfaces.MyListener;
+import tn.esprit.controllers.Cardblogs;
 import tn.esprit.interfacesb.MyListenerb;
 import tn.esprit.models.Blog;
-import tn.esprit.services.BlogService;
-import tn.esprit.utils.Pagination;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
+import javafx.stage.Stage;
+import tn.esprit.models.Blog;
+import tn.esprit.services.BlogService;
+import tn.esprit.utils.Pagination;
+import java.io.IOException;
+import java.net.URL;
+import javafx.scene.control.ToggleButton;
+
+import java.util.ResourceBundle;
 public class BlogList implements Initializable {
     @FXML
     private ToggleButton favButton;
@@ -44,8 +61,6 @@ public class BlogList implements Initializable {
     private Button favoris;
     @FXML
     private Button blogEdit_btn;
-    @FXML
-    private ImageView chat;
 
     @FXML
     private ImageView blogimg;
@@ -80,8 +95,6 @@ public class BlogList implements Initializable {
     private Label titre;
 
     private Pagination pagination;
-    private ArrayList<Blog> list_blogs = new ArrayList<>();
-
     private ObservableList<Blog> blogs = FXCollections.observableArrayList(getList_blogs());
     private ArrayList<Blog> getList_blogs(){
         BlogService sv = new BlogService();
@@ -113,11 +126,11 @@ public class BlogList implements Initializable {
             Optional<ButtonType> result = alert.showAndWait();
             if(result.get() == ButtonType.OK){
                 System.out.println(" deleting");
-               BlogService sv = new BlogService();
+                BlogService sv = new BlogService();
                 sv.delete(chosenblog);
 
 
-               blogs.remove(chosenblog);
+                blogs.remove(chosenblog);
                 // Update the UI by rebuilding the grid
                 buildGrid();
 
@@ -181,8 +194,12 @@ public class BlogList implements Initializable {
         int column = 0;
         int row = 1;
         try {
-            for (Blog blog : blogs) {    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/cardblogs.fxml"));
+            for (Blog blog : blogs) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/cardblogs.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
+
+
                 Cardblogs controller = fxmlLoader.getController();
                 controller.setData(blog, myListenerb); // Assurez-vous que BlogItem a une méthode setData appropriée
                 if (column == 3) {
@@ -218,11 +235,11 @@ public class BlogList implements Initializable {
         if (imageFile.exists()) {
             // Chargez l'image depuis le fichier
             Image image = new Image(imageFile.toURI().toString());
-          blogimg.setImage(image); // Assurez-vous d'avoir une référence à l'élément correspondant dans votre FXML pour afficher l'image
-           Cardblogs.setStyle("-fx-background-color: #eef4f3" + ";\n" +
+            blogimg.setImage(image); // Assurez-vous d'avoir une référence à l'élément correspondant dans votre FXML pour afficher l'image
+            Cardblogs.setStyle("-fx-background-color: #eef4f3" + ";\n" +
                     "    -fx-background-radius: 30;");
         } else {
-           //  Gérez le cas où le fichier image n'est pas trouvé
+            //  Gérez le cas où le fichier image n'est pas trouvé
             System.out.println("Image file not found: " + blog.getImageb());
             // Vous pouvez éventuellement définir une image par défaut ou gérer la situation différemment
         }
@@ -231,43 +248,28 @@ public class BlogList implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        list_blogs = getList_blogs(); // Remplacer getList_voyages() par la méthode correspondante pour récupérer les événements
 
-           BlogService blogService = new BlogService();
-       List<Blog> allBlogsList = blogService.getAll();
+        BlogService blogService = new BlogService();
+        List<Blog> allBlogsList = blogService.getAll();
 
-        pagination = new Pagination((blogs) , 6); //
+        pagination = new Pagination(blogs, 6); //
         updateGrid();
-       blogs.addAll(blogService.getAll());
+        blogs.addAll(blogService.getAll());
         if (!blogs.isEmpty()) {
-           setChosenBlog(blogs.get(0));
-           myListenerb = new MyListenerb() {
+            setChosenBlog(blogs.get(0));
+            myListenerb = new MyListenerb() {
                 @Override
                 public void onClickListenerb(Blog blog) {
-                   setChosenBlog(blog);   }
+                    setChosenBlog(blog);   }
             };
         }
-      buildGrid();
+        buildGrid();
 
     }
-    @FXML
-    void navtochat(MouseEvent event) {
-        System.out.println("Je navigue");
 
-        FXMLLoader loader;
-        Parent root;
-        try {
-            loader = new FXMLLoader(getClass().getResource("/ChatBot.fxml"));
-            root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return;
-        }
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show();
 
-    }
+
+
     private void navigateToAjouterblog(Blog chosenblog, ActionEvent event) {
 
         System.out.println("Je navigue");
@@ -288,13 +290,13 @@ public class BlogList implements Initializable {
 
     @FXML
     void onsearchvoyage(ActionEvent event) throws BlogService.ItemNotFoundException {
-            String keyWord = onsearchbloglabel.getText();
-           BlogService sv = new BlogService();
-            ArrayList<Blog> foundItems = sv.searchByTitle(keyWord);
-            blogs = FXCollections.observableArrayList(foundItems);
-            buildGrid();
+        String keyWord = onsearchbloglabel.getText();
+        BlogService sv = new BlogService();
+        ArrayList<Blog> foundItems = sv.searchByTitle(keyWord);
+        blogs = FXCollections.observableArrayList(foundItems);
+        buildGrid();
 
-        }
+    }
 
     @FXML
     void onsearchfavoris(ActionEvent event) {
@@ -307,33 +309,33 @@ public class BlogList implements Initializable {
     @FXML
     void onfavadd(ActionEvent event) {
 
-            String name = titre.getText();
-            Blog chosenBlog = null;
-            for (Blog unit : blogs) {
-                if (unit.getTitre().equals(name)) {
-                    chosenBlog = unit;
-                    break;
-                }
-            }
-            if (chosenBlog != null) {
-                chosenBlog.setFavoris(true);
-                BlogService blogService = new BlogService();
-                blogService.addToFavorites(chosenBlog);
-
-                buildGrid();
-                // Update the blog in the database or wherever it's stored
-
-                blogService.update(chosenBlog);
-
-                ArrayList<Blog> blogArrayList = new ArrayList<>(blogs);
-                blogService.displayAll(blogArrayList);
-                // Optionally, provide feedback to the user
-                System.out.println("Blog ajouté aux favoris avec succès !");
-            } else {
-                // Provide feedback to the user that no blog is chosen
-                System.out.println("Aucun blog choisi.");
+        String name = titre.getText();
+        Blog chosenBlog = null;
+        for (Blog unit : blogs) {
+            if (unit.getTitre().equals(name)) {
+                chosenBlog = unit;
+                break;
             }
         }
+        if (chosenBlog != null) {
+            chosenBlog.setFavoris(true);
+            BlogService blogService = new BlogService();
+            blogService.addToFavorites(chosenBlog);
+
+            buildGrid();
+            // Update the blog in the database or wherever it's stored
+
+            blogService.update(chosenBlog);
+
+            ArrayList<Blog> blogArrayList = new ArrayList<>(blogs);
+            blogService.displayAll(blogArrayList);
+            // Optionally, provide feedback to the user
+            System.out.println("Blog ajouté aux favoris avec succès !");
+        } else {
+            // Provide feedback to the user that no blog is chosen
+            System.out.println("Aucun blog choisi.");
+        }
+    }
     @FXML
     void nextPage(ActionEvent event) {
         pagination.nextPage(); // Passez à la page suivante
@@ -361,7 +363,7 @@ public class BlogList implements Initializable {
             try {
                 anchorPane = fxmlLoader.load();
                 Cardblogs controller = fxmlLoader.getController();
-              //  controller.setData(blog,  myListenerb);
+                controller.setData(blog, myListenerb);
                 grid.getChildren().add(anchorPane);
                 // Définir la position de l'élément dans la grille
                 GridPane.setRowIndex(anchorPane, i / 3); // Par exemple, 3 éléments par ligne
@@ -377,4 +379,20 @@ public class BlogList implements Initializable {
     }
 
 
+    public void navtochat(MouseEvent event) {
+
+        System.out.println("let's chat");
+
+        FXMLLoader loader;
+        Parent root;
+        try {
+            loader = new FXMLLoader(getClass().getResource("/ChatBot.fxml"));
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show(); }
 }

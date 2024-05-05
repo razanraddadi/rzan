@@ -11,6 +11,7 @@ module PIDEV.voyage {
     requires AnimateFX;
     requires org.controlsfx.controls;
     requires org.apache.pdfbox;
-
+    requires org.json;
     opens tn.esprit.controllers;
+    opens tn.esprit.models;
 }

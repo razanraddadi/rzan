@@ -50,11 +50,8 @@ public class Cardblogs {
             // Vous pouvez gérer cette situation comme vous le souhaitez, par exemple, en définissant une image par défaut.
         }
     }
-
-
-    @FXML
-    void click(MouseEvent event) {
+     @FXML
+     void click(MouseEvent event) {
         myListenerb.onClickListenerb(blog);
     }
-
 }

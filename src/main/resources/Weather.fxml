@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.WeatherController">
+   <children>
+      <VBox layoutX="42.0" layoutY="46.0" prefHeight="275.0" prefWidth="423.0">
+         <children>
+            <Label fx:id="temperatureLabel" text="temperature" />
+            <Label fx:id="humidityLabel" text="humidity" />
+            <Label fx:id="weatherDescriptionLabel" prefHeight="18.0" prefWidth="93.0" text="Description:" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
