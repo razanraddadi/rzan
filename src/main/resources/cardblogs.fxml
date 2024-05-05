@@ -21,7 +21,7 @@
                   <Font name="Cambria" size="24.0" />
                </font>
             </Label>
-            <Label fx:id="datelabel" prefHeight="49.0" prefWidth="101.0" text="2/6/2024">
+            <Label fx:id="datelabel" prefHeight="49.0" prefWidth="101.0" text="6/5/2024">
                <font>
                   <Font name="Cambria Bold" size="13.0" />
                </font>

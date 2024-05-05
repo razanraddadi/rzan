@@ -35,10 +35,10 @@ public class Cardblogs {
     public static void setStyle(String s) {
     }
 
-    public void setData(Blog blog, MyListenebrb myListenebrb) {
+    public void setData(Blog blog, MyListenerb myListenerb) {
         this.blog = blog;
         this.myListenerb = myListenerb;
-       // datelabel.setText(blog.getDate());
+        // datelabel.setText(blog.getDate());
         titrelabel.setText(blog.getTitre());
 
         File imageFile = new File(blog.getImageb()); // Assurez-vous d'avoir importé java.io.File
@@ -50,6 +50,7 @@ public class Cardblogs {
             // Vous pouvez gérer cette situation comme vous le souhaitez, par exemple, en définissant une image par défaut.
         }
     }
+
 
     @FXML
     void click(MouseEvent event) {

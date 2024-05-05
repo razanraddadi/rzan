@@ -102,7 +102,7 @@ public class AjouterBlog {
             stage.show();
 
 
-            stage.close();
+           // stage.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -134,43 +134,6 @@ public class AjouterBlog {
         description.setText(blog.getContent());
         imageb.setText(blog.getImageb());
         btnadd.setDisable(true);
-    }
-
-    @FXML
-    void delete(ActionEvent event) {
-        Blog b = table.getSelectionModel().getSelectedItem();
-        BlogService service = new BlogService();
-        service.delete(b);
-        showBlog();
-    }
-
-    @FXML
-    void update(ActionEvent event) {
-        Blog b = table.getSelectionModel().getSelectedItem();
-        BlogService blogService = new BlogService();
-        b.setTitre(titre.getText());
-        b.setContent(description.getText());
-        b.setImageb(imageb.getText());
-        blogService.update(b);
-        showBlog();
-    }
-
-    @FXML
-    void showDetails(ActionEvent event) {
-        Blog selectedBlog = table.getSelectionModel().getSelectedItem();
-        if (selectedBlog != null) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Détails du Blog");
-            alert.setHeaderText(selectedBlog.getTitre());
-            alert.setContentText(selectedBlog.getContent());
-            alert.showAndWait();
-        } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Aucun blog sélectionné");
-            alert.setHeaderText(null);
-            alert.setContentText("Veuillez sélectionner un blog pour afficher les détails.");
-            alert.showAndWait();
-        }
     }
 
     public static boolean verifyBadWords(String word){
@@ -252,14 +215,12 @@ public class AjouterBlog {
                 alert.setContentText("Le blog a été ajouté avec succés.");
                 alert.show();
 
-                showBlog();
-
                 //navigateToListBlogs(actionEvent);
             } catch (Exception e) {
                 afficherErreur("Une erreur s'est produite lors de l'ajout du blog : " + e.getMessage());
                 e.printStackTrace();
             };
-
+        showBlog();
 
     }
 

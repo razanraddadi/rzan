@@ -82,16 +82,8 @@
                            </HBox.margin>
                         </Button>
                         <Pane prefHeight="0.0" prefWidth="0.0" />
-                         <Button fx:id="btnupdate" alignment="CENTER" mnemonicParsing="false" onAction="#update" text="update">
-                           <HBox.margin>
-                              <Insets right="50.0" />
-                           </HBox.margin>
-                        </Button>
-                         <Button fx:id="btndelete" alignment="CENTER" mnemonicParsing="false" onAction="#delete" text="delete">
-                           <HBox.margin>
-                              <Insets right="50.0" />
-                           </HBox.margin>
-                        </Button>
+
+
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <TableView fx:id="table" onMouseClicked="#getData" prefHeight="100.0" prefWidth="133.0">
@@ -103,8 +95,7 @@
                                     <TableColumn fx:id="coldatde" prefWidth="128.0" text="date de creation" />
                                     <TableColumn fx:id="details" prefWidth="128.0" text="details">
                                        <graphic>
-                                          <Button fx:id="detailsButton" mnemonicParsing="false" onAction="#showDetails" text="details" />
-                                       </graphic>
+                                         </graphic>
                                     </TableColumn>
                                  </columns>
                               </TableView>

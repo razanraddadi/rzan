@@ -45,9 +45,10 @@ public class BlogServiceback {
 
     public ObservableList<Blog> getAll() {
         ObservableList<Blog> blogs = FXCollections.observableArrayList();
-        String qry = "SELECT * FROM blog";
-        try (Statement stm = connection.createStatement();
-             ResultSet rs = stm.executeQuery(qry)) {
+        String req = "SELECT * FROM blog";
+        try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/codeshift", "root", "");
+            PreparedStatement statement = connection.prepareStatement(req);
+            ResultSet rs = statement.executeQuery()) {
             while (rs.next()) {
                 Blog blog = new Blog();
                 blog.setId(rs.getInt("id"));

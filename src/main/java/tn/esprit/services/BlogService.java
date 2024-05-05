@@ -8,11 +8,13 @@ import tn.esprit.models.Blog;
 import tn.esprit.utils.MyDataBase;
 
 import java.sql.*;
+import java.sql.SQLException;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BlogService implements IService<Blog> {
-    private ObservableList<Blogs>blogs = FXCollections.observableArrayList();
+    private ObservableList<Blogs> blogs = FXCollections.observableArrayList();
 
     private static Connection connection;
 
@@ -91,7 +93,7 @@ public class BlogService implements IService<Blog> {
             pstm.setString(1, b.getTitre());
             pstm.setString(2, b.getContent());
             pstm.setString(3, b.getImageb());
-            pstm.setDate(4, new Date(b.getDate().getTime()));
+            pstm.setDate(4, new java.sql.Date(b.getDate().getTime()));
             pstm.setBoolean(5, b.isFavoris());
             pstm.executeUpdate();
             int rowsAffected = pstm.executeUpdate();
@@ -109,9 +111,10 @@ public class BlogService implements IService<Blog> {
     @Override
     public ArrayList<Blog> getAll() {
         ArrayList<Blog> blogs = new ArrayList<>();
-         String qry = "SELECT * FROM blog";
-        try (Statement stm = connection.createStatement();
-             ResultSet rs = stm.executeQuery(qry)) {
+        String req = "SELECT * FROM blog";
+        try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/codeshift", "root", "");
+            PreparedStatement statement = connection.prepareStatement(req);
+            ResultSet rs = statement.executeQuery()) {
             while (rs.next()) {
                 Blog blog = new Blog();
                 blog.setId(rs.getInt("id"));
@@ -119,14 +122,14 @@ public class BlogService implements IService<Blog> {
                 blog.setDate(rs.getDate("date"));
                 blog.setContent(rs.getString("content"));
                 blog.setImageb(rs.getString("imageb"));
-                blog.setDate(rs.getDate("date"));
                 blogs.add(blog);
             }
         } catch (SQLException e) {
             System.out.println("Erreur lors de la récupération des blogs : " + e.getMessage());
         }
-        return blogs;
+        return blogs; // <- Retourne les blogs récupérés
     }
+
     @Override
     public void displayAll(ArrayList<Blog> items) {
         for (Blog b : items) {
@@ -148,35 +151,37 @@ public class BlogService implements IService<Blog> {
     public void update(Blog b) {
         try {
             if (b != null) {
-            String req = "update blog  set titre =? , content =? ,imageb=? where id=?";
-            PreparedStatement pstm = connection.prepareStatement(req);
-            pstm.setString(1, b.getTitre());
-            pstm.setString(2, b.getContent());
-            pstm.setString(3, b.getImageb());
-            pstm.setInt(4, b.getId());
-            //pstm.executeUpdate();
+                String req = "update blog  set titre =? , content =? ,imageb=? where id=?";
+                PreparedStatement pstm = connection.prepareStatement(req);
+                pstm.setString(1, b.getTitre());
+                pstm.setString(2, b.getContent());
+                pstm.setString(3, b.getImageb());
+                pstm.setInt(4, b.getId());
+                //pstm.executeUpdate();
 
 
-            int rowsAffected = pstm.executeUpdate();
-            if (rowsAffected > 0) {
-                System.out.println("Post modifie avec succès !");//
-            } else {
-               System.out.println("Échec de modif  du post.");
-            } } else {
+                int rowsAffected = pstm.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("Post modifie avec succès !");//
+                } else {
+                    System.out.println("Échec de modif  du post.");
+                } } else {
                 System.out.println("L'objet Blog passé en paramètre est null.");
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage()); }
 
     }
+
+    @Override
     public boolean delete(Blog b) {
 
-            String delete = "delete from blog  where id = ?";
+        String delete = "delete from blog  where id = ?";
         try {
 
             PreparedStatement pstm = connection.prepareStatement(delete);
-pstm.setInt(1,b.getId());
-pstm.executeUpdate();
+            pstm.setInt(1,b.getId());
+            pstm.executeUpdate();
             System.out.println("Post delete avec succès !");//
 
         } catch (SQLException e) {

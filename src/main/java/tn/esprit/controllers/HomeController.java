@@ -76,13 +76,12 @@ public class HomeController {
     }
     @FXML
     private void navigateToAjouterBlog(MouseEvent event) {
-        // Load the FXML file of the next page
-        System.out.println("Navigating to AjouterBlog");
+        System.out.println("I NAVIGATED");
 
         FXMLLoader loader;
         Parent root;
         try {
-            loader = new FXMLLoader(getClass().getResource("/AjouterBlogback.fxml"));
+            loader = new FXMLLoader(getClass().getResource("/AjouterBlog.fxml"));
             root = loader.load();
         } catch (IOException e) {
             e.printStackTrace();
@@ -96,7 +95,6 @@ public class HomeController {
         stage.setScene(scene);
         stage.show();
     }
-
     @FXML
     void initialize() {
 
